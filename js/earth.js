@@ -38,24 +38,31 @@
 	light.position.set(5,3,5);
 	scene.add(light);
 
-
+  // creates a sphere object using radius and segment variables
   var sphere = createSphere(radius, segments);
+  // allows for sphere rotation on y axis
 	sphere.rotation.y = rotation; 
 	scene.add(sphere);
 
-    var clouds = createClouds(radius, segments);
+  // create clouds, similar setup to sphere
+  var clouds = createClouds(radius, segments);
+  // allows for cloud rotation on y axis
 	clouds.rotation.y = rotation;
 	scene.add(clouds);
 
+  // create stars and add it to the scene
 	var stars = createStars(90, 64);
 	scene.add(stars);
 
+  // setting up trackball for navigation with camera
 	var controls = new THREE.TrackballControls(camera);
 
+  // attaching renderer to the webgl div
 	webglEl.appendChild(renderer.domElement);
 
 	render();
 
+  // render details (controls, rotation, animation frame)
 	function render() {
 		controls.update();
 		sphere.rotation.y += 0.0005;
@@ -64,6 +71,7 @@
 		renderer.render(scene, camera);
 	}
 
+  // using mesh to wrap images around the sphere (cloudless earth img, bump map for texture, and spectral map for shine)
 	function createSphere(radius, segments) {
 		return new THREE.Mesh(
 			new THREE.SphereGeometry(radius, segments, segments),
@@ -77,6 +85,7 @@
 		);
 	}
 
+  // creating mesh to map cloud image onto sphere
 	function createClouds(radius, segments) {
 		return new THREE.Mesh(
 			new THREE.SphereGeometry(radius + 0.003, segments, segments),			
@@ -87,6 +96,7 @@
 		);		
 	}
 
+  // create mesh for background stars
 	function createStars(radius, segments) {
 		return new THREE.Mesh(
 			new THREE.SphereGeometry(radius, segments, segments), 
