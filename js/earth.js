@@ -1,37 +1,45 @@
-// Created by Bjorn Sandvik - thematicmapping.org
+
 (function () {
 
+  // variable set to grab div id 'webgl' in index.html
 	var webglEl = document.getElementById('webgl');
 
+  // if the Detector can't render, add error message to webgl div
 	if (!Detector.webgl) {
 		Detector.addGetWebGLMessage(webglEl);
 		return;
 	}
 
+  // setting the width and height of the display window
 	var width  = window.innerWidth,
-		height = window.innerHeight;
+		  height = window.innerHeight;
 
-	// Earth params
+	// variables for Earth globe
 	var radius   = 0.5,
-		segments = 32,
-		rotation = 6;
+		  segments = 32,
+		  rotation = 6;
 
-	// create new scen, camera, and renderer (needed for three.js)	
+	// create new scene, camera, and renderer (needed for three.js)	
 	var scene = new THREE.Scene();
 
+  // create new camera
 	var camera = new THREE.PerspectiveCamera(45, width / height, 0.01, 1000);
 	camera.position.z = 1.5;
 
+  // renders the scene, size set to display size (width, height)
 	var renderer = new THREE.WebGLRenderer();
 	renderer.setSize(width, height);
 
+  // adds lighting to the scene
 	scene.add(new THREE.AmbientLight(0x333333));
 
+  // more info about the lights (direction, color, position)
 	var light = new THREE.DirectionalLight(0xffffff, 1);
 	light.position.set(5,3,5);
 	scene.add(light);
 
-    var sphere = createSphere(radius, segments);
+
+  var sphere = createSphere(radius, segments);
 	sphere.rotation.y = rotation; 
 	scene.add(sphere);
 

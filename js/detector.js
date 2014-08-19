@@ -3,6 +3,8 @@
  * @author mr.doob / http://mrdoob.com/
  */
 
+
+// checks to see if there's anything rendering to the canvas
 var Detector = {
 
 	canvas: !! window.CanvasRenderingContext2D,
@@ -10,11 +12,14 @@ var Detector = {
 	workers: !! window.Worker,
 	fileapi: window.File && window.FileReader && window.FileList && window.Blob,
 
+  // error message
 	getWebGLErrorMessage: function () {
 
+		// create a div element for error message
 		var element = document.createElement( 'div' );
 		element.className = 'webgl-error';
 
+    // logic check: if there's no webgl element, show error message for graphics card and browser
 		if ( !this.webgl ) {
 
 			element.innerHTML = window.WebGLRenderingContext ? [
@@ -27,6 +32,7 @@ var Detector = {
 
 		}
 
+    // returns webgl element
 		return element;
 
 	},
